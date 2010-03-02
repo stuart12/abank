@@ -1,0 +1,66 @@
+/*	Amulet Bank, uses Qt 3, Author: Stuart Pook 2002
+ *	$Id: abank.moc,v 2.8 2002/07/25 16:03:27 pook Exp $
+ */
+#include <qtable.h>
+#include <qlayout.h>
+#include <qvbox.h>
+#include <qpushbutton.h>
+#include <qlabel.h>
+#include <qbitmap.h>
+#include <qmainwindow.h>
+
+#include "accountbalance.h"
+#include "entry.h"
+#include "month.h"
+#include "transactions.h"
+
+class BitmapButton : public QPushButton
+{
+public:
+	BitmapButton(QWidget * parent, const char * name, int width, int height, const uchar * bits);
+};
+
+class Abank : public QMainWindow
+{
+	Q_OBJECT
+	QStringList accounts;
+	int current_account;
+	Month * month;
+	Transactions transactions;
+	QHBoxLayout change_month;
+	BitmapButton prev;
+	BitmapButton next;
+	QVBoxLayout buttons;
+	QLabel month_label;
+	QHBoxLayout create;
+	BitmapButton delete_entry;
+	BitmapButton copy_right;
+	QHBoxLayout shift;
+	BitmapButton move_left;
+	BitmapButton move_right;
+	QPushButton quit;
+	QVBoxLayout global;
+	QHBoxLayout top;
+	QTable balances;
+	QTable trans;
+	QPixmap const quit_icon;
+	QPixmap const save_icon;
+	QPixmap const bomb_icon;
+	
+	void changed_month();
+	void modify();
+private slots:
+	void move_forward_selected();
+	void move_back_selected();
+	void copy_forward_selected();
+	void change_account(int);
+	void no_account();
+	void delete_selected();
+	void save_or_quit();
+	void add_entry();
+	void previous_month();
+	void next_month();
+	void value_changed(int, int);
+public:
+	Abank(char const * file, bool small);
+};
