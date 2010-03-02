@@ -1,1 +1,5 @@
-This is a really simple accounting program. It was orginally designed for a really small screen.
+This is a really simple accounting program. It was orginally designed for a small screen.
+
+You have to create the list of your accounts by hand. Just use you favourite editor using
+the file accounts as a guide. You can add accounts later but don't remove them if they have
+transactions.
