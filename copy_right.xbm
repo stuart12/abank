@@ -1,0 +1,25 @@
+/*	copy_right.xbm
+ *
+ *	Copyright 2002, 2004, 2010 Stuart Pook
+ *
+ *	This file is part of ABank.
+ *
+ *	ABank is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *	
+ *	ABank is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *	
+ *	You should have received a copy of the GNU General Public License
+ *	along with ABank.  If not, see <http://www.gnu.org/licenses/>.
+ */
+#define copy_right_width 17
+#define copy_right_height 9
+static unsigned char copy_right_bits[] = {
+   0x03, 0x81, 0x01, 0x03, 0x83, 0x01, 0x03, 0x87, 0x01, 0xf3, 0x8f, 0x01,
+   0xf3, 0x9f, 0x01, 0xf3, 0x8f, 0x01, 0x03, 0x87, 0x01, 0x03, 0x83, 0x01,
+   0x03, 0x81, 0x01};
