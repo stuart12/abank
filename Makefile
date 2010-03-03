@@ -41,7 +41,7 @@ else
 		CPPFLAGS = -I/usr/include/qt3
 		CXXFLAGS += -O
 		libs=${qt}/lib
-		LDLIBS = -lqt
+		LDLIBS = -lqt-mt
 		moc = moc
 endif
 	LDFLAGS = -L/usr/X11R6/lib -L${libs} -Xlinker -R/usr/X11R6/lib -Xlinker -R${libs} -g
