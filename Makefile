@@ -76,6 +76,8 @@ endif
 name = a.out
 objs = abank.o transactions.o month.o entry.o
 
+${name}:
+
 run: ${name} test
 	${env} ./${name} ${args} test
 	
