@@ -1,3 +1,7 @@
+fix paste of newline
+
+convert to utf8
+
 fix Segmentation fault when there are no transactions
 
 reading just gives -1 rather than an error when missing fields in the accounts file
