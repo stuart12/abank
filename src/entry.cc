@@ -166,7 +166,7 @@ Entry::modify()
 void
 Entry::description(char const * s)
 {
-	delete _description;
+	delete [] _description;
 	_description = strcpy(new char[(strlen(s) + 1)], s);
 	modify();
 }

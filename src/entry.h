@@ -38,7 +38,7 @@ class Entry
 	friend class Transactions;
 	Month * _current_month;
 	Entry(int day, int month, int year, int f, int t, int a, char const * des);
-	~Entry() { delete _description; }
+	~Entry() { delete [] _description; }
 	Entry(istream & in);
 	void save(ostream & out) const;
 	void modify();
