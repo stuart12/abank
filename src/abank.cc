@@ -1,7 +1,7 @@
 /*	abank.cc
  *	Uses Qt 3
  *
- *	Copyright 2002, 2004, 2010 Stuart Pook
+ *	Copyright 2002, 2004, 2010, 2013 Stuart Pook
  *
  *	This file is part of ABank.
  *
@@ -24,6 +24,7 @@
 #include <time.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <locale.h>
 
 #include <qlineedit.h>
 #include <qvalidator.h>
@@ -31,6 +32,8 @@
 #include <qmessagebox.h>
 #include <qpainter.h>
 #include <qcolor.h>
+#include <qlocale.h>
+#include <qtextcodec.h>
 
 char * myname;
 
@@ -870,8 +873,12 @@ Abank::Abank(char const * file, bool small) :
 
 int main(int argc, char * argv[])
 {
+	setlocale(LC_ALL, "");
+	// http://lists.trolltech.com/qt-interest/2008-06/thread00094-0.html
+	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
 	myname = argv[0];
 	QApplication application(argc, argv);
+	setlocale(LC_NUMERIC, "C");
 	bool small = false;
 	if (argv[1] && strcmp(argv[1], "-s") == 0)
 	{
