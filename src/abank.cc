@@ -806,7 +806,7 @@ Abank::Abank(char const * file, bool small) :
 	b->setReadOnly(true);
 	b->setShowGrid(false);
 	b->setFocusPolicy(QWidget::NoFocus);
-	b->setText(0, col_previous, "-99999.99");
+	b->setText(0, col_previous, "-999999.99");
 	b->setText(0, col_differences, "9999");
 	for (int i = 0; i < transactions.naccounts(); i++)
 	{
@@ -834,12 +834,12 @@ Abank::Abank(char const * file, bool small) :
 	t->setText(0, col_date, "00/00");
 	t->adjustColumn(col_date);
 	t->setColumnWidth(col_date, t->columnWidth(col_date) - 4);
-	t->setText(0, col_amount, "9999.99");
+	t->setText(0, col_amount, "99999.99");
 	t->adjustColumn(col_amount);
 	t->setColumnWidth(col_amount, t->columnWidth(col_amount) - 2);
 	
 #if 1
-	t->setText(0, col_from, "Livret A");
+	t->setText(0, col_from, "Boursorama CB");
 #else
 	set_account(t, 0, col_from, 0, accounts);
 #endif
@@ -857,7 +857,7 @@ Abank::Abank(char const * file, bool small) :
 	g->addLayout(&top);
 	g->addWidget(t, 1);
 	
-	setMinimumSize((small) ? QSize(236, 279) : QSize(350, 400));
+	setMinimumSize((small) ? QSize(236, 279) : QSize(600, 700));
 	show();
 	t->setNumRows(0);
 //	if (small)
