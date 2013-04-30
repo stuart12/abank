@@ -187,10 +187,13 @@ AmountValidator::parse_amount(char const * s, int * v)
 	if (v == 0)
 		v = &dummy;
 	*v = 0;
-	while (isdigit(*s))
+	for (; isdigit(*s) || isspace(*s); s++)
 	{
-		*v = *v * 10 + *s++ - '0';
-		state = Acceptable;
+		if (isdigit(*s))
+		{
+			*v = *v * 10 + *s - '0';
+			state = Acceptable;
+		}
 	}
 	*v *= 100;
 	if (*s == '.' || *s == ',')
