@@ -372,6 +372,12 @@ set_amount(QTable * transactions, int r, int amount)
 	transactions->setItem(r, col_amount, new TableAmountItem(transactions, format_amount(amount)));
 }
 
+inline void
+set_description(QTable * transactions, int row, char const * description)
+{
+	transactions->setText(row, col_description, description);
+}
+
 static void
 set_entry(QTable * transactions, int row, Entry * e, QStringList const & accounts)
 {
@@ -381,7 +387,7 @@ set_entry(QTable * transactions, int row, Entry * e, QStringList const & account
 	set_account(transactions, row, col_to, e->to(), accounts);
 	
 	set_amount(transactions, row, e->amount());
-	transactions->setText(row, col_description, e->description());
+	set_description(transactions, row, e->description());
 	transactions->item(row, col_description)->setReplaceable(false);
 	
 	//transactions->adjustRow(row);
@@ -499,10 +505,12 @@ Abank::value_changed(int r, int c)
 		QString n = trans.text(r, c);
 		if (c == col_description)
 		{
+			n.replace(QChar('\n'), QChar(' '));
 			if (n != e->description())
 			{
 				e->description(n);
 				modify();
+				set_description(&trans, r, e->description());
 			}
 		}
 		else if (c == col_amount)
