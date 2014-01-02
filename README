@@ -1,5 +1,16 @@
-This is a really simple accounting program. It was orginally designed for a small screen.
+This is a really simple accounting program. It was orginally designed for
+a small screen.
 
-You have to create the list of your accounts by hand. Just use you favourite editor using
-the file accounts as a guide. You can add accounts later but don't remove them if they have
-transactions.
+You have to create the list of your accounts by hand. Just use you favourite
+editor using the file accounts as a guide. You can add accounts later but
+don't remove them if they have transactions.
+
+If you want subpixel rendering you might have to add the following lines to
+your ~/.Xresources
+
+Xft.antialias: 1
+Xft.hintstyle: hintmedium
+Xft.lcdfilter: lcddefault
+Xft.rgba: rgb
+
+See https://bugs.launchpad.net/ubuntu/+source/qt4-x11/+bug/217729

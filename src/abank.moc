@@ -18,13 +18,17 @@
  *	You should have received a copy of the GNU General Public License
  *	along with ABank.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <qtable.h>
+#include <q3table.h>
 #include <qlayout.h>
-#include <qvbox.h>
+#include <q3vbox.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
 #include <qbitmap.h>
-#include <qmainwindow.h>
+#include <q3mainwindow.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <QPixmap>
+#include <Q3HBoxLayout>
 
 #include "accountbalance.h"
 #include "entry.h"
@@ -37,29 +41,29 @@ public:
 	BitmapButton(QWidget * parent, const char * name, int width, int height, const uchar * bits);
 };
 
-class Abank : public QMainWindow
+class Abank : public Q3MainWindow
 {
 	Q_OBJECT
 	QStringList accounts;
 	int current_account;
 	Month * month;
 	Transactions transactions;
-	QHBoxLayout change_month;
+	Q3HBoxLayout change_month;
 	BitmapButton prev;
 	BitmapButton next;
-	QVBoxLayout buttons;
+	Q3VBoxLayout buttons;
 	QLabel month_label;
-	QHBoxLayout create;
+	Q3HBoxLayout create;
 	BitmapButton delete_entry;
 	BitmapButton copy_right;
-	QHBoxLayout shift;
+	Q3HBoxLayout shift;
 	BitmapButton move_left;
 	BitmapButton move_right;
 	QPushButton quit;
-	QVBoxLayout global;
-	QHBoxLayout top;
-	QTable balances;
-	QTable trans;
+	Q3VBoxLayout global;
+	Q3HBoxLayout top;
+	Q3Table balances;
+	Q3Table trans;
 	QPixmap const quit_icon;
 	QPixmap const save_icon;
 	QPixmap const bomb_icon;

@@ -1,0 +1,7 @@
+.deps
+abank
+abank-abank.o
+abank-entry.o
+abank-month.o
+abank-transactions.o
+abank.h

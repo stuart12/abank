@@ -1,4 +1,4 @@
-#	Makefile.am, Copyright (c) 2010, 2011 Stuart Pook
+#	Makefile.am, Copyright (c) 2010, 2011, 2014 Stuart Pook (http://www.pook.it/)
 #
 #	This file is part of ABank.
 #	
@@ -17,11 +17,11 @@
 
 bin_PROGRAMS = abank
 abank_SOURCES = abank.cc entry.cc month.cc transactions.cc
-abank_LDADD = $(LIBOBJS) $(PACKAGES_LIBS)
-abank_CXXFLAGS = $(PACKAGES_CFLAGS)
+abank_LDADD = $(LIBOBJS) $(QT3SUPPORT_LIBS)
+abank_CXXFLAGS = $(QT3SUPPORT_CFLAGS)
 BUILT_SOURCES = abank.h
 
 MOC = moc
-%.h: %.moc
+abank.h: abank.moc
 	$(MOC) -f $< -o $@
 abank.o: abank.h

@@ -34,6 +34,10 @@
 #include <qcolor.h>
 #include <qlocale.h>
 #include <qtextcodec.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QLabel>
+#include <Q3BoxLayout>
 
 char * myname;
 
@@ -76,12 +80,12 @@ format_date(Entry const * e)
 
 enum { col_previous = 0, col_current, col_differences, col_number };
 
-class TableBalanceItem : public QTableItem
+class TableBalanceItem : public Q3TableItem
 {
 	bool _negative;
 public:
-	TableBalanceItem(QTable * t) :
-		QTableItem(t, Never)
+	TableBalanceItem(Q3Table * t) :
+		Q3TableItem(t, Never)
 	{
 	}
 	enum { e_rtti = 35815 };
@@ -89,12 +93,12 @@ public:
 	void paint(QPainter * p, const QColorGroup & cg, const QRect & cr, bool selected )
 	{
 		if (!_negative)
-			QTableItem::paint(p, cg, cr, selected);
+			Q3TableItem::paint(p, cg, cr, selected);
 		else
 		{
 			QColorGroup ncg = cg;
 			ncg.setColor(QColorGroup::Text, Qt::red);
-			QTableItem::paint(p, ncg, cr, selected);
+			Q3TableItem::paint(p, ncg, cr, selected);
 		}
 	}
 	void setText(QString const & text)
@@ -103,15 +107,15 @@ public:
 		{
 			QString s = text;
 			s.remove('-');
-			QTableItem::setText(s);
+			Q3TableItem::setText(s);
 		}
 		else
-			QTableItem::setText(text);
+			Q3TableItem::setText(text);
 	}
 };
 
 static void
-set_differences(QTable * balances, Month * m)
+set_differences(Q3Table * balances, Month * m)
 {
 	int sum = 0;
 	for (int i = 0; i < balances->numRows() - 1; i++)
@@ -130,7 +134,7 @@ set_differences(QTable * balances, Month * m)
 }
 
 static void
-change_balances(QTable * balances, Month *  month, int a1, int a2 = -1)
+change_balances(Q3Table * balances, Month *  month, int a1, int a2 = -1)
 {
 	balances->setText(a1, col_current, format_amount(month->balance(a1)));
 	if (a2 >= 0)
@@ -140,7 +144,7 @@ change_balances(QTable * balances, Month *  month, int a1, int a2 = -1)
 }
 
 static void
-set_balances(QTable * balances, Month * m)
+set_balances(Q3Table * balances, Month * m)
 {
 	Month const * p = m->prev();
 	for (int i = balances->numRows(); i-- > 0; )
@@ -152,17 +156,17 @@ set_balances(QTable * balances, Month * m)
 }
 
 static void
-set_account(QTable * transactions, int r, int c, int current, QStringList const & accounts)
+set_account(Q3Table * transactions, int r, int c, int current, QStringList const & accounts)
 {
 #if 1
-	QTableItem * item = transactions->item(r, c);
+	Q3TableItem * item = transactions->item(r, c);
 	if (item == 0)
 	{
-		item = new QComboTableItem(transactions, accounts);
+		item = new Q3ComboTableItem(transactions, accounts);
 		transactions->setItem(r, c, item);
 	}
 	assert(item->rtti() == 1);
-	static_cast<QComboTableItem *>(item)->setCurrentItem(current);
+	static_cast<Q3ComboTableItem *>(item)->setCurrentItem(current);
 #endif
 }
 
@@ -301,13 +305,13 @@ DateValidator::parse_date(char const * s, int * day, int * month, int * year)
 	return Invalid;
 }
 
-class TableDateItem : public QTableItem
+class TableDateItem : public Q3TableItem
 {
       DateValidator validator;
       Entry * _entry;
 public:
-	TableDateItem(QTable * t, const QString & text, Entry * entry) :
-		QTableItem(t, OnTyping, text),
+	TableDateItem(Q3Table * t, const QString & text, Entry * entry) :
+		Q3TableItem(t, OnTyping, text),
 		validator(table()),
 		_entry(entry)
 	{
@@ -336,12 +340,12 @@ public:
 	Entry * entry() { return _entry; }
 };
 
-class TableAmountItem : public QTableItem
+class TableAmountItem : public Q3TableItem
 {
       AmountValidator validator;
 public:
-	TableAmountItem(QTable * t, const QString & text) :
-		QTableItem(t, OnTyping, text),
+	TableAmountItem(Q3Table * t, const QString & text) :
+		Q3TableItem(t, OnTyping, text),
 		validator(table(), "TableAmountItem::validator")
 	{
 		setReplaceable(false);
@@ -361,25 +365,25 @@ public:
 };
 
 inline void
-set_date(QTable * transactions, int r, Entry * e)
+set_date(Q3Table * transactions, int r, Entry * e)
 {
 	transactions->setItem(r, col_date, new TableDateItem(transactions, format_date(e), e));
 }
 
 inline void
-set_amount(QTable * transactions, int r, int amount)
+set_amount(Q3Table * transactions, int r, int amount)
 {
 	transactions->setItem(r, col_amount, new TableAmountItem(transactions, format_amount(amount)));
 }
 
 inline void
-set_description(QTable * transactions, int row, char const * description)
+set_description(Q3Table * transactions, int row, char const * description)
 {
 	transactions->setText(row, col_description, description);
 }
 
 static void
-set_entry(QTable * transactions, int row, Entry * e, QStringList const & accounts)
+set_entry(Q3Table * transactions, int row, Entry * e, QStringList const & accounts)
 {
 	set_date(transactions, row, e);
 	
@@ -397,7 +401,7 @@ set_entry(QTable * transactions, int row, Entry * e, QStringList const & account
 }
 
 static void
-set_transactions(QTable * transactions, Month * month, QStringList const & accounts, int current_account)
+set_transactions(Q3Table * transactions, Month * month, QStringList const & accounts, int current_account)
 {
 	transactions->setNumRows(month->num_entries());
 	int i = 0;
@@ -421,7 +425,7 @@ BitmapButton::BitmapButton(QWidget * parent, const char * name, int width, int h
 	enum { xbm_fudge = 6 };
 	setPixmap(QBitmap(width, height, bits, true));
 	setFixedSize(width + xbm_fudge, height + xbm_fudge);
-	setFocusPolicy(QWidget::NoFocus);
+	setFocusPolicy(Qt::NoFocus);
 }
 
 void
@@ -471,14 +475,14 @@ fix_year(int year)
 void
 Abank::value_changed(int r, int c)
 {
-	QTableItem * item = trans.item(r, c);
+	Q3TableItem * item = trans.item(r, c);
 	TableDateItem * tdi = static_cast<TableDateItem *>((c == 0) ? item : trans.item(r, 0));
 	assert(tdi->rtti() == tdi->e_rtti);
 	Entry * e = tdi->entry();
 	if (c == col_from || c == col_to)
 	{
 		assert(item->rtti() == 1);
-		QComboTableItem * cti = static_cast<QComboTableItem *>(item);
+		Q3ComboTableItem * cti = static_cast<Q3ComboTableItem *>(item);
 		int account = cti->currentItem();
 		int oaccount;
 		if (c == col_from)
@@ -611,13 +615,13 @@ Abank::save_or_quit()
 typedef void (Entry::*Treat)();
 
 static bool
-treat_selected(QTable * trans, QTable * balances, bool remove, Treat func)
+treat_selected(Q3Table * trans, Q3Table * balances, bool remove, Treat func)
 {
 	if (trans->numSelections() == 0)
 		return false;
-	QTableSelection sel = trans->selection(0);
-	QTable::SelectionMode const mode = trans->selectionMode();
-	trans->setSelectionMode(QTable::NoSelection);
+	Q3TableSelection sel = trans->selection(0);
+	Q3Table::SelectionMode const mode = trans->selectionMode();
+	trans->setSelectionMode(Q3Table::NoSelection);
 	
 	Month * m = 0;
 	for (int i = sel.bottomRow(); i >= sel.topRow(); i--)
@@ -681,7 +685,7 @@ Abank::change_account(int section)
 	}
 	else
 	{
-		QTableSelection sel;
+		Q3TableSelection sel;
 		sel.init(section, 0);
 		sel.expandTo(section, 1);
 		balances.clearSelection();
@@ -704,7 +708,7 @@ const
 #include "move_left.xbm"
 #include "move_right.xbm"
 Abank::Abank(char const * file, bool small) :
-	QMainWindow(0, "Abank"),
+	Q3MainWindow(0, "Abank"),
 	current_account(-1),
 	transactions(file),
 	change_month(0, "change_month"),
@@ -798,9 +802,9 @@ Abank::Abank(char const * file, bool small) :
 	buttons.addStretch(1);
 	
 	quit.setPixmap(quit_icon);
-	quit.setFocusPolicy(QWidget::NoFocus);
+	quit.setFocusPolicy(Qt::NoFocus);
 	{
-		QBoxLayout * lquit = new QHBoxLayout(&buttons, 0, "lquit");
+		Q3BoxLayout * lquit = new Q3HBoxLayout(&buttons, 0, "lquit");
 		lquit->addStretch(1);
 		lquit->addWidget(&quit);
 		lquit->addStretch(1);
@@ -811,12 +815,12 @@ Abank::Abank(char const * file, bool small) :
 	top.addLayout(&buttons, 2);
 	top.addStretch(2);
 	
-	QTable * const b = &balances;
+	Q3Table * const b = &balances;
 	b->setNumRows(transactions.naccounts());
 	b->setTopMargin(0);
 	b->setReadOnly(true);
 	b->setShowGrid(false);
-	b->setFocusPolicy(QWidget::NoFocus);
+	b->setFocusPolicy(Qt::NoFocus);
 	b->setText(0, col_previous, "-999999.99");
 	b->setText(0, col_differences, "9999");
 	for (int i = 0; i < transactions.naccounts(); i++)
@@ -840,7 +844,7 @@ Abank::Abank(char const * file, bool small) :
 	top.addWidget(b);
 	top.addStretch(2);
 
-	QTable * const t = &trans;
+	Q3Table * const t = &trans;
 	t->setNumRows(1);
 	t->setText(0, col_date, "00/00");
 	t->adjustColumn(col_date);
@@ -864,7 +868,7 @@ Abank::Abank(char const * file, bool small) :
 	t->setTopMargin(0);
 	t->setSelectionMode(t->MultiRow);
 	
-	QBoxLayout * const g = &global;
+	Q3BoxLayout * const g = &global;
 	g->addLayout(&top);
 	g->addWidget(t, 1);
 	
