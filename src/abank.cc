@@ -1,7 +1,7 @@
 /*	abank.cc
- *	Uses Qt 3
+ *	Uses Qt3Support from Qt 4
  *
- *	Copyright 2002, 2004, 2010, 2013 Stuart Pook
+ *	Copyright 2002, 2004, 2010, 2013, 2014 Stuart Pook (http://www.pook.it/)
  *
  *	This file is part of ABank.
  *
