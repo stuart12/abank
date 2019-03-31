@@ -1,3 +1,4 @@
+On Debian: sudo apt install autoconf libqt4-qt3support libqt4-dev-bin libqt4-dev
 autoreconf  --install && ./configure && make
 ...
 maintainer-clean
